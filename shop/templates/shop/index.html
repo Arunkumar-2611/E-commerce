@@ -11,7 +11,7 @@ Shopkart |Online shopping
             <h3>Latest Offers!!!</h3>
             <hr style="border-color:#b8bfc2;"></h1></div>
         {% for item in products %}
-    <div class="col-md-4 col-lg-3">
+    <div class="col-md-4 col-lg-3" >
         <div class="card my-3">
             {% if item.product_image %}
             <img src="{{item.product_image.url}}" class="card-image-top" alt="Categories"> 

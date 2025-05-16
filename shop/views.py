@@ -6,8 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
 import json
-
-
+import smtplib
 def home(request):
     products=Product.objects.filter(trending=1)
     return render(request,"shop/index.html",{"products":products})
@@ -86,10 +85,27 @@ def login_page(request):
         if request.method=="POST":
             name=request.POST.get("username")
             pwd=request.POST.get("password")
+            
             user=authenticate(request,username=name,password=pwd)
             if user is not None:
                 login(request,user)
-                messages.success(request,"Logged in Successfully!!!")
+                #send email
+                # email=user.email
+                # print(email)
+                # messages.success(request,"Logged in Successfully!!!")
+                # sender_mail="arunarunkumar.m333@gmail.com"
+                # password="uzhn xatf ybxn vskp"
+                # receiver_email=email
+                # server=smtplib.SMTP('smtp.gmail.com',587)
+                # server.starttls()
+                # server.login(sender_mail,password)
+                # print("Login Success")
+                # subject="Login Alert"
+                # body=f"Hi {name}!!\nYou have successfully logged in to your account"
+                # message=f"Subject:{subject}\n\n{body}"
+                # server.sendmail(sender_mail,receiver_email,message)
+                # server.quit()
+
                 return redirect("/")
             else:
                 messages.error(request,"Invalid User Name or password")
@@ -106,9 +122,13 @@ def register(request):
     form=CustomUserForm()
     if request.method=="POST":
         form=CustomUserForm(request.POST)
+        name=request.POST.get("username")
+        email=request.POST.get("email")
         if form.is_valid():
             form.save()
             messages.success(request,"Registration Sucess You can Login Now..!")
+            messages.success(request,"Logged in Successfully!!!")
+           
             return redirect("/login")
 
     return render(request,"shop/register.html",{'form':form})

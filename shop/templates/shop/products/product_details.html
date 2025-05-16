@@ -23,9 +23,9 @@ Shopkart |Online shopping
             </div>
             <div class="col-4 my-3 pic-box">
                 {% if products.trending %}
-                <div class="hot">Hot</div>
+                <div class="hot" title="Trending Product">Hot</div>
                 {% endif %}
-                <img src="{{products.product_image.url}}" class="card-image-top" alt="{{products}}">
+                <img src="{{products.product_image.url}}" class="card-image-top" alt="{{products}}" height="200px" width="250px">
             </div>
             <div class="col-8 my-3">
                 <h5 class="text-success">{{products |upper}}</h5>
