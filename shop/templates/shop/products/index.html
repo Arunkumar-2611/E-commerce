@@ -1,0 +1,46 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+Shopkart | Online Shopping
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height: 600px;">
+    <div class="container">
+        <div class="row">
+            <h3><strong>{{ catagory_name }} Products</strong></h3>
+        </div>
+        <hr style="border-color:#b8bfc2;">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ catagory_name }} Collections</li>
+            </ol>
+        </nav>
+        {% include 'shop/inc/message.html' %}
+
+        <div class="row">
+            {% for item in products %}
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="card h-100">
+                    {% if item.product_image %}
+                    <img src="{{ item.product_image.url }}" class="card-img-top" alt="{{ item.name }}">
+                    <hr style="border-color:#b8bfc2;">
+                    {% else %}
+                    <p class="text-center py-5">Image not found</p>
+                    {% endif %}
+                    <a href="{% url 'product_details' catagory_name item.name %}">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">{{ item.name|upper }}</h5>
+                            <p class="card-text">
+                                <span class="float-start old_price"><s>Rs.{{ item.original_price|stringformat:'d' }}</s></span>
+                                <span class="float-end new_price">Rs.{{ item.selling_price|stringformat:'d' }}</span>
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock content %}
